@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load crispy_forms_tags %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Blog App</title>
+</head>
+<body>
+    <style>
+        .post-list{
+            margin-left: 7px;
+        }
+        .item{
+            border: 2px solid rebeccapurple;
+            padding: .5em;
+            margin-bottom:5px;
+        }
+        .form{
+            border: 2px solid rebeccapurple;
+            padding: .5em;
+        }
+    </style>
+<div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="javascript:window_close();">Done</a>
+    </div>
+<div>
+       <center><h1 class="item" >welcom to our Blog</h1></center>
+    </div>
+   <div class="post-list">
+     {% for post in post_list %}
+
+        <div class="item col-8">
+            <h1>{{post.title}}</h1>
+            <h3>{{post.body}}</h3>
+            <a href="{% url 'post_detail' post.id  %}"><input type="button" class="btn btn-outline-primary" value="show details"></a>
+        </div>
+    {% endfor %}
+    <div>
+    <form method="post" action="/" class="form col-8">
+    {% csrf_token %}
+
+        <div class="col-6 ml-2px">
+            {{ form.title }}
+        </div>
+
+        
+    
+        <div class="col-6" style="margin: left 2px;">
+            {{ form.body  }}
+        </div>
+        <button type="submit" class="btn btn-outline-success col-6 mb-2 ml-2">Post</button>
+   </div>
+   {% if user.authenticated %}
+   <a href="login/logout">logout</a>
+   {% else %}
+   <a href="login/login">Login</a>
+   {% endif %}
+
+</form>
+</div>
+
+
+</body>
+</html>

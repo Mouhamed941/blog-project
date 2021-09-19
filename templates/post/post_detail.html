@@ -1,0 +1,34 @@
+<div>
+    <h3>{{post.title}}</h3>
+    <p>{{post.created_on}}</p>
+    <p>{{post.body}}</p>
+</div>
+{% for comment in comments.all %}
+        <div class="comments" style="padding: 10px;">
+          <p class="font-weight-bold">
+            {{ comment.name }}
+            <span class=" text-muted font-weight-normal">
+              {{ comment.created_on }}
+            </span>
+          </p>
+          {{ comment.body | linebreaks }}
+          <button type="submit"><a href="{% url 'edit_comment' comment.id %}">Edit</a></button>
+          <button type="submit"><a href="{% url 'delete_comment' comment.id %}">Delete</a></button>
+        </div>
+
+
+{% endfor %}
+{{ test }}
+<div class="card-body">
+        {% comment %} {% if new_comment %} {% endcomment %}
+                <h3>Leave a comment</h3>
+                <form method="post" style="margin-top: 1.3em;">
+                {{ comment_form }}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+                </form>
+        {% comment %} {% endif %} {% endcomment %}
+</div>
+
+
+
